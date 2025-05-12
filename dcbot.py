@@ -5,6 +5,8 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
+from server import server_thread
+
 load_dotenv()
 
 TOKEN = os.getenv("TOKEN")
@@ -31,4 +33,5 @@ async def main():
             await bot.load_extension(cog)
         await bot.start(TOKEN)
 
+server_thread()
 asyncio.run(main())
