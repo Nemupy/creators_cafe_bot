@@ -4,6 +4,12 @@ from discord.ext import commands
 class Analyze(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+        self.role_ids = [
+            1356118296768020511, 1356118343974649973, 1356116939600166983,
+            1356120364488458392, 1356118179033645106, 1358087693879345182,
+            1358087693879345182, 1356118433095487591, 1356641761388265552
+        ]
+        self.gender_ids = [1356117038447464629, 1356116995531083868]
 
     @commands.command(name="role_analyze", aliases=["r"])
     @commands.has_permissions(administrator=True)
@@ -11,6 +17,10 @@ class Analyze(commands.Cog):
         if not roles:
             roles = ctx.guild.roles
             roles = [role for role in roles if role != ctx.guild.default_role]
+        elif len(roles) == 1 and str(roles[0]).lower() == "roles":
+            roles = [role for role in ctx.guild.roles if role.id in self.role_ids]
+        elif len(roles) == 1 and str(roles[0]).lower() == "gender":
+            roles = [role for role in ctx.guild.roles if role.id in self.gender_ids]
 
         total_members = len(ctx.guild.members) 
 
