@@ -13,14 +13,26 @@ class Analyze(commands.Cog):
 
     @commands.command(name="role_analyze", aliases=["r"])
     @commands.has_permissions(administrator=True)
-    async def role_analyze(self, ctx, *roles: discord.Role):
-        if not roles:
-            roles = ctx.guild.roles
-            roles = [role for role in roles if role != ctx.guild.default_role]
-        elif len(roles) == 1 and str(roles[0]).lower() == "roles":
+    async def role_analyze(self, ctx, *args):
+        if not args:
+            roles = [role for role in ctx.guild.roles if role != ctx.guild.default_role]
+        elif len(args) == 1 and args[0].lower() == "roles":
             roles = [role for role in ctx.guild.roles if role.id in self.role_ids]
-        elif len(roles) == 1 and str(roles[0]).lower() == "gender":
+        elif len(args) == 1 and args[0].lower() == "gender":
             roles = [role for role in ctx.guild.roles if role.id in self.gender_ids]
+        else:
+            roles = []
+            for arg in args:
+                role = discord.utils.get(ctx.guild.roles, mention=arg)
+                if not role:
+                    role = discord.utils.get(ctx.guild.roles, name=arg)
+                if not role:
+                    try:
+                        role = await commands.RoleConverter().convert(ctx, arg)
+                    except commands.BadArgument:
+                        continue
+                if role:
+                    roles.append(role)
 
         total_members = len(ctx.guild.members) 
 
