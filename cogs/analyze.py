@@ -1,15 +1,25 @@
 import discord
 from discord.ext import commands
 
+
 class Analyze(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.role_ids = [
-            1356118296768020511, 1356118343974649973, 1356116939600166983,
-            1356120364488458392, 1356118179033645106, 1358087693879345182,
-            1358087693879345182, 1356118433095487591, 1356641761388265552
+            1356118296768020511,
+            1356118343974649973,
+            1356116939600166983,
+            1356120364488458392,
+            1356118179033645106,
+            1358087693879345182,
+            1358087693879345182,
+            1356118433095487591,
+            1356641761388265552
         ]
-        self.gender_ids = [1356117038447464629, 1356116995531083868]
+        self.gender_ids = [
+            1356117038447464629,
+            1356116995531083868
+        ]
 
     @commands.command(name="role_analyze", aliases=["r"])
     @commands.has_permissions(administrator=True)
@@ -34,7 +44,7 @@ class Analyze(commands.Cog):
                 if role:
                     roles.append(role)
 
-        total_members = len(ctx.guild.members) 
+        total_members = len(ctx.guild.members)
 
         embed = discord.Embed(color=discord.Color.blue())
 
@@ -54,6 +64,7 @@ class Analyze(commands.Cog):
         filled_length = int(length * percentage // 100)
         bar = "█" * filled_length + "░" * (length - filled_length)
         return f"`{bar}`"
+
 
 async def setup(bot):
     await bot.add_cog(Analyze(bot))
