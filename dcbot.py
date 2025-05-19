@@ -13,6 +13,7 @@ TOKEN = os.getenv("TOKEN")
 
 COGS_EXTENSIONS = [
     "cogs.analyze",
+    "cogs.server_log",
     "cogs.voice_log",
     "cogs.voice_notify"
 ]
