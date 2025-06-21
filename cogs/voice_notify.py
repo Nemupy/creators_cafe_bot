@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+IGNORE_CHANNEL = int(os.getenv("IGNORE_CHANNEL_ID"))
 NOTIFY_CHANNEL = int(os.getenv("NOTIFY_CHANNEL_ID"))
 NOTIFY_ROLE = int(os.getenv("NOTIFY_ROLE_ID"))
 
@@ -19,6 +20,9 @@ class VoiceNotify(commands.Cog):
     @commands.Cog.listener()
     async def on_voice_state_update(self, member, before, after):
         if member.bot:
+            return
+        
+        if (after.channel and after.channel.id in IGNORE_CHANNEL) or (before.channel and before.channel.id in IGNORE_CHANNEL):
             return
 
         notify_channel = self.bot.get_channel(NOTIFY_CHANNEL)
