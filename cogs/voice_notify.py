@@ -22,7 +22,7 @@ class VoiceNotify(commands.Cog):
         if member.bot:
             return
         
-        if (after.channel and after.channel.id in IGNORE_CHANNEL) or (before.channel and before.channel.id in IGNORE_CHANNEL):
+        if (after.channel and after.channel.id == IGNORE_CHANNEL) or (before.channel and before.channel.id == IGNORE_CHANNEL):
             return
 
         notify_channel = self.bot.get_channel(NOTIFY_CHANNEL)
