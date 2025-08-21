@@ -40,7 +40,7 @@ class VoiceNotify(commands.Cog):
                             embed.add_field(name="`チャンネル`", value=f"<#{channel_id}>", inline=True)
                             embed.add_field(name="`始めた人`", value=member.mention, inline=True)
                             embed.add_field(name="`開始時間`", value=f"<t:{int(datetime.datetime.now().timestamp())}:f>", inline=True)
-                            embed.set_thumbnail(url=member.avatar.url)
+                            embed.set_thumbnail(url=member.display_avatar.url)
                             await notify_channel.send(f"<@&{NOTIFY_ROLE}>", embed=embed)
                             self.active_calls[channel_id]["notified"] = True
                 task = asyncio.create_task(timer(after.channel.id, member))
